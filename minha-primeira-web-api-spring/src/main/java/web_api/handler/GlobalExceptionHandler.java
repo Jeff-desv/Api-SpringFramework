@@ -52,8 +52,9 @@ public class GlobalExceptionHandler {
 		return null;
 	}
 
-	private ResponseEntity<Object> handleBusinessException(BusinessException undeclaredThrowable, WebRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+	@ExceptionHandler({BusinessException.class})
+	private ResponseEntity<Object> handleBusinessException(BusinessException e, WebRequest request){
+		ResponseError error = responseError(e.getMessage(), HttpStatus.CONFLICT);
+		return handleExceptionInternal(e, error, headers(), HttpStatus.CONFLICT, request);
 	}
 }
