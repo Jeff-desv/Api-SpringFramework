@@ -3,12 +3,18 @@ package web_api.repository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
+
+import web_api.handler.BusinessException;
 import web_api.model.Usuario;
 
 @Repository
 public class UserRepository {
 	
 	public void save(Usuario usuario) {
+		
+		if(usuario.getLogin()==null) {
+			throw new BusinessException("O campo Login e Obrigatorio");
+		}
 		if(usuario.getId()==null) {
 			System.out.println("SAVE - Recebendo o usuário na camada de repositorio");
 		} else {
